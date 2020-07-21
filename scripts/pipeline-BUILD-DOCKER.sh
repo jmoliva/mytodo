@@ -79,7 +79,7 @@ if [ ! -d $ARCHIVE_DIR/CHART_ROOT ]; then # no need to copy if working in ./ alr
   cp -r $CHART_ROOT $ARCHIVE_DIR/
 fi
 
-echo -e "\\=========================================================="
+echo -e "\\n=========================================================="
 echo "COPYING ARTIFACTS needed for deployment and testing (in particular build.properties)"
 
 echo "Checking archive dir presence"
