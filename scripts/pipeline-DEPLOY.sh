@@ -97,9 +97,10 @@ IMAGE_PULL_SECRET_NAME="ibmcloud-toolchain-${PIPELINE_TOOLCHAIN_ID}-${REGISTRY_U
 INGRESS_SUBDOMAIN=$(ibmcloud ks cluster get --cluster ${PIPELINE_KUBERNETES_CLUSTER_NAME} | grep 'Ingress Subdomain' | awk '{ print $3 }')
 INGRESS_HOST="todo.${INGRESS_SUBDOMAIN}"
 
-INGRESS_SECRET=$(ibmcloud ks cluster get --cluster ${PIPELINE_KUBERNETES_CLUSTER_NAME} | grep 'Secret Ingress' | awk '{ print $3 }')
+INGRESS_SECRET=$(ibmcloud ks cluster get --cluster ${PIPELINE_KUBERNETES_CLUSTER_NAME} | grep 'Ingress Secret' | awk '{ print $3 }')
 
 echo "##### ON REMPLACE AVEC LES VALEURS SUIVANTES:"
+echo "INGRESS_SECRET=${INGRESS_SECRET}"
 echo "RELEASE_NAME=${RELEASE_NAME}"
 echo "CHART_PATH=${CHART_PATH}"
 echo "image.repository=${IMAGE_REPOSITORY}"
