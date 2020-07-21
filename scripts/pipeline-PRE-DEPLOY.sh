@@ -33,6 +33,7 @@ if [ -z "${IP_ADDR}" ]; then
   exit 1
 fi
 echo "Configuring cluster namespace"
+kubectl get ns
 if kubectl get namespace ${CLUSTER_NAMESPACE}; then
   echo -e "Namespace ${CLUSTER_NAMESPACE} found."
 else
