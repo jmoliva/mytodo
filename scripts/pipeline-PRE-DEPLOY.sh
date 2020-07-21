@@ -90,18 +90,18 @@ fi
 echo "=========================================================="
 echo "CONFIGURING TILLER enabled (Helm server-side component)"
 
-echo -e "\n==## Installing Helm 2.12.2"
-wget https://storage.googleapis.com/kubernetes-helm/helm-v2.12.2-linux-amd64.tar.gz
-tar -xzvf helm-v2.12.2-linux-amd64.tar.gz
-mkdir $HOME/helm212
-mv linux-amd64/helm $HOME/helm212/
-export PATH=$HOME/helm212:$PATH
-rm helm-v2.12.2-linux-amd64.tar.gz
+# echo -e "\n==## Installing Helm 2.12.2"
+# wget https://storage.googleapis.com/kubernetes-helm/helm-v2.12.2-linux-amd64.tar.gz
+# tar -xzvf helm-v2.12.2-linux-amd64.tar.gz
+# mkdir $HOME/helm212
+# mv linux-amd64/helm $HOME/helm212/
+# export PATH=$HOME/helm212:$PATH
+# rm helm-v2.12.2-linux-amd64.tar.gz
 
-kubectl apply -f kubernetes/tiller-rbac-config.yaml
+# kubectl apply -f kubernetes/tiller-rbac-config.yaml
 
-helm init --upgrade --service-account tiller
-kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system
+# helm init --upgrade --service-account tiller
+# kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system
 helm version
 
 echo "=========================================================="
