@@ -22,7 +22,7 @@ echo "GIT_COMMIT=${GIT_COMMIT}"
 # To review or change build options use:
 # bx cr build --help
 
-echo -e "/n=========================================================="
+echo -e "\\n=========================================================="
 echo "CHECKING DOCKERFILE"
 echo "Checking Dockerfile at the repository root"
 if [ -f Dockerfile ]; then 
@@ -46,7 +46,7 @@ if [ ! -z ${GIT_COMMIT} ]; then
   IMAGE_TAG=${IMAGE_TAG}-${GIT_COMMIT_SHORT}; 
 fi
 
-echo -e "/n=========================================================="
+echo -e "\\n=========================================================="
 echo -e "BUILDING CONTAINER IMAGE: ${IMAGE_NAME}:${IMAGE_TAG}"
 set -x
 bx cr build -t ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG} .
@@ -58,7 +58,7 @@ export PIPELINE_IMAGE_URL="$REGISTRY_URL/$REGISTRY_NAMESPACE/$IMAGE_NAME:$BUILD_
 
 bx cr images --restrict ${REGISTRY_NAMESPACE}/${IMAGE_NAME}
 
-echo -e "/n=========================================================="
+echo -e "\\n=========================================================="
 echo "CHECKING HELM CHART"
 CHART_ROOT="./.cloud/chart"
 if [ -d ${CHART_ROOT} ]; then
@@ -79,7 +79,7 @@ if [ ! -d $ARCHIVE_DIR/CHART_ROOT ]; then # no need to copy if working in ./ alr
   cp -r $CHART_ROOT $ARCHIVE_DIR/
 fi
 
-echo -e "/n=========================================================="
+echo -e "\\=========================================================="
 echo "COPYING ARTIFACTS needed for deployment and testing (in particular build.properties)"
 
 echo "Checking archive dir presence"
