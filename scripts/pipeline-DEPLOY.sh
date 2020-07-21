@@ -97,6 +97,8 @@ IMAGE_PULL_SECRET_NAME="ibmcloud-toolchain-${PIPELINE_TOOLCHAIN_ID}-${REGISTRY_U
 INGRESS_SUBDOMAIN=$(ibmcloud ks cluster get --cluster ${PIPELINE_KUBERNETES_CLUSTER_NAME} | grep 'Ingress Subdomain' | awk '{ print $3 }')
 INGRESS_HOST="todo.${INGRESS_SUBDOMAIN}"
 
+INGRESS_SECRET=$(ibmcloud ks cluster get --cluster ${PIPELINE_KUBERNETES_CLUSTER_NAME} | grep 'Secret Ingress' | awk '{ print $3 }')
+
 echo "##### ON REMPLACE AVEC LES VALEURS SUIVANTES:"
 echo "RELEASE_NAME=${RELEASE_NAME}"
 echo "CHART_PATH=${CHART_PATH}"
@@ -107,10 +109,10 @@ echo "INGRESS_HOST=${INGRESS_HOST}"
 
 # Using 'upgrade --install" for rolling updates. Note that subsequent updates will occur in the same namespace the release is currently deployed in, ignoring the explicit--namespace argument".
 echo -e "Dry run into: ${PIPELINE_KUBERNETES_CLUSTER_NAME}/${CLUSTER_NAMESPACE}."
-helm upgrade --install --debug --dry-run ${RELEASE_NAME} ${CHART_PATH} --set ingress.hosts[0]=${INGRESS_HOST},ingress.tls[0].hosts[0]=${INGRESS_HOST},ingress.tls[0].secretName=${PIPELINE_KUBERNETES_CLUSTER_NAME},image.repository=${IMAGE_REPOSITORY},image.tag=${IMAGE_TAG},image.pullSecret=${IMAGE_PULL_SECRET_NAME} --namespace ${CLUSTER_NAMESPACE}
+helm upgrade --install --debug --dry-run ${RELEASE_NAME} ${CHART_PATH} --set ingress.hosts[0]=${INGRESS_HOST},ingress.tls[0].hosts[0]=${INGRESS_HOST},ingress.tls[0].secretName=${INGRESS_SECRET},image.repository=${IMAGE_REPOSITORY},image.tag=${IMAGE_TAG},image.pullSecret=${IMAGE_PULL_SECRET_NAME} --namespace ${CLUSTER_NAMESPACE}
 
 echo -e "Deploying into: ${PIPELINE_KUBERNETES_CLUSTER_NAME}/${CLUSTER_NAMESPACE}."
-helm upgrade --install --debug ${RELEASE_NAME} ${CHART_PATH} --set ingress.hosts[0]=${INGRESS_HOST},ingress.tls[0].hosts[0]=${INGRESS_HOST},ingress.tls[0].secretName=${PIPELINE_KUBERNETES_CLUSTER_NAME},image.repository=${IMAGE_REPOSITORY},image.tag=${IMAGE_TAG},image.pullSecret=${IMAGE_PULL_SECRET_NAME} --namespace ${CLUSTER_NAMESPACE}
+helm upgrade --install --debug ${RELEASE_NAME} ${CHART_PATH} --set ingress.hosts[0]=${INGRESS_HOST},ingress.tls[0].hosts[0]=${INGRESS_HOST},ingress.tls[0].secretName=${INGRESS_SECRET},image.repository=${IMAGE_REPOSITORY},image.tag=${IMAGE_TAG},image.pullSecret=${IMAGE_PULL_SECRET_NAME} --namespace ${CLUSTER_NAMESPACE}
 
 echo "=========================================================="
 echo -e "CHECKING deployment status of release ${RELEASE_NAME} with image tag: ${IMAGE_TAG}"
