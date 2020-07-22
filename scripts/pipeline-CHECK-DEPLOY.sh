@@ -163,8 +163,8 @@ echo "DEPLOYING HELM chart"
 # #--force-upgrade
 
 
-# WITH_INGRESS=$(ibmcloud ks cluster get --cluster demos-2 --json | jq ".isPaid")
-WITH_INGRESS="false"
+WITH_INGRESS=$(ibmcloud ks cluster get --cluster demos-2 --json | jq ".isPaid")
+# WITH_INGRESS="false"
 
 IMAGE_REPOSITORY=${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}
 IMAGE_PULL_SECRET_NAME="ibmcloud-toolchain-${PIPELINE_TOOLCHAIN_ID}-${REGISTRY_URL}"

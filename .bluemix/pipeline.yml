@@ -8,7 +8,7 @@ stages:
   triggers:
   - type: commit
   jobs:
-  - name: Pre-build check
+  - name: Check & Build image
     type: builder
     build_type: cr
     artifact_dir: ''
@@ -19,24 +19,12 @@ stages:
     image_name: ${CF_APP_NAME}
     script: |-
       #!/bin/bash
-      ./scripts/pipeline-BUILD.sh
-  - name: Build Docker image
-    type: builder
-    build_type: cr
-    artifact_dir: output
-    target:
-      region_id: ${REGISTRY_REGION_ID}
-      api_key: ${API_KEY}
-    namespace: ${REGISTRY_NAMESPACE}
-    image_name: ${CF_APP_NAME}
-    script: |
-      #!/bin/bash
-      ./scripts/pipeline-BUILD-DOCKER-IMAGE.sh
+      ./scripts/pipeline-BUILD-DOCKER.sh
 - name: VALIDATE
   inputs:
   - type: job
     stage: BUILD
-    job: Build Docker image
+    job: Check & Build image
   triggers:
   - type: stage
   properties:
@@ -59,7 +47,7 @@ stages:
   inputs:
   - type: job
     stage: BUILD
-    job: Build Docker image
+    job: Check & Build image
   triggers:
   - type: stage
   properties:
@@ -70,7 +58,7 @@ stages:
     value: ${PROD_CLUSTER_NAMESPACE}
     type: text     
   jobs:
-  - name: Pre-deploy check
+  - name: Check & Deploy
     type: deployer
     target:
       region_id: ${PROD_REGION_ID}
@@ -78,13 +66,4 @@ stages:
       kubernetes_cluster: ${PROD_CLUSTER_NAME}
     script: |
       #!/bin/bash
-      ./scripts/pipeline-PRE-DEPLOY.sh
-  - name: Deploy Helm chart
-    type: deployer
-    target:
-      region_id: ${PROD_REGION_ID}
-      api_key: ${API_KEY}
-      kubernetes_cluster: ${PROD_CLUSTER_NAME}
-    script: |
-      #!/bin/bash
-      ./scripts/pipeline-DEPLOY.sh
+      ./scripts/pipeline-CHECK-DEPLOY.sh
