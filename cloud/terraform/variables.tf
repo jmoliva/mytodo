@@ -16,7 +16,7 @@ variable "account_id" {
 variable "prefix" {
   description = "A unique identifier need to provision resources. Must begin with a letter"
   type        = string
-  default     = "mytodo"
+  default     = "ezy1"
 }
 
 variable "region" {
@@ -27,5 +27,5 @@ variable "region" {
 variable "tags" {
   description = "List of Tags"
   type        = list(string)
-  default     = ["tf", "mytodo"]
+  default     = ["tf", "ezy1"]
 }

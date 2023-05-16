@@ -4,10 +4,10 @@
 #ibmcloud_api_key = ""      # Set the variable export TF_VAR_ibmcloud_api_key=
 # Account ID is only used for CBR Rule and Zone
 account_id            = "0b5a00334eaf9eb9339d2ab48f7326b4"
-prefix                = "mytodo"
+prefix                = "ezy1"
 region                = "eu-de" # eu-de for Frankfurt MZR
-resource_group_name   = ""
-tags                  = ["terraform", "mytodo"]
+resource_group_name   = "test-ezy1"
+tags                  = ["tf", "ezy1"]
 activity_tracker_name = "platform-activities"
 
 
