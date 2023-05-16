@@ -8,7 +8,7 @@ prefix                = "ezy1"
 region                = "eu-de" # eu-de for Frankfurt MZR
 resource_group_name   = "test-ezy1"
 tags                  = ["tf", "ezy1"]
-activity_tracker_name = "platform-activities"
+# activity_tracker_name = "platform-activities"
 
 
 ##############################################################################
